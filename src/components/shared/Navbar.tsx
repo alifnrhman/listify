@@ -45,7 +45,7 @@ export function Navbar() {
 				</nav>
 
 				{/* Right Side */}
-				<div className="hidden md:flex flex-1 justify-end items-center gap-2">
+				<div className="hidden md:flex flex-1 justify-end items-center gap-4">
 					<ThemeToggle />
 					<SignedOut>
 						<SignInButton>
@@ -57,7 +57,7 @@ export function Navbar() {
 					</SignedOut>
 					<SignedIn>
 						<Button
-							variant="ghost"
+							variant="outline"
 							onClick={() => router.push("/dashboard")}>
 							Dashboard
 						</Button>
