@@ -7,6 +7,8 @@ import { ThemeToggle } from "./ThemeToggle";
 import { Menu } from "lucide-react";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader } from "@/components/ui/sheet";
 import { Logo } from "./Logo";
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 const navLinks = [
 	{ title: "Features", href: "#features" },
@@ -16,6 +18,8 @@ const navLinks = [
 ];
 
 export function Navbar() {
+	const router = useRouter();
+
 	return (
 		<header className="w-full bg-transparent fixed top-0 left-0 z-50 backdrop-blur">
 			<div className="mx-auto w-full max-w-7xl px-4 flex h-16 items-center">
@@ -43,12 +47,22 @@ export function Navbar() {
 				{/* Right Side */}
 				<div className="hidden md:flex flex-1 justify-end items-center gap-2">
 					<ThemeToggle />
-					<Link href="/sign-in">
-						<Button variant="ghost">Sign In</Button>
-					</Link>
-					<Link href="/sign-up">
-						<Button>Sign Up</Button>
-					</Link>
+					<SignedOut>
+						<SignInButton>
+							<Button variant="ghost">Sign In</Button>
+						</SignInButton>
+						<SignUpButton>
+							<Button>Sign Up</Button>
+						</SignUpButton>
+					</SignedOut>
+					<SignedIn>
+						<Button
+							variant="ghost"
+							onClick={() => router.push("/dashboard")}>
+							Dashboard
+						</Button>
+						<UserButton />
+					</SignedIn>
 				</div>
 
 				{/* Mobile Menu */}
@@ -76,18 +90,25 @@ export function Navbar() {
 										{link.title}
 									</Link>
 								))}
+
 								<div className="mt-6 flex flex-col gap-2">
 									<ThemeToggle />
-									<Link href="/signin">
+									<SignedOut>
+										<SignInButton>
+											<Button variant="ghost">Sign In</Button>
+										</SignInButton>
+										<SignUpButton>
+											<Button>Sign Up</Button>
+										</SignUpButton>
+									</SignedOut>
+									<SignedIn>
 										<Button
 											variant="ghost"
-											className="w-full">
-											Sign In
+											onClick={() => router.push("/dashboard")}>
+											Dashboard
 										</Button>
-									</Link>
-									<Link href="/signup">
-										<Button className="w-full">Sign Up</Button>
-									</Link>
+										<UserButton showName />
+									</SignedIn>
 								</div>
 							</nav>
 						</SheetContent>
