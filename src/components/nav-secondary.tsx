@@ -23,7 +23,7 @@ export function NavSecondary({
 		<SidebarGroup {...props}>
 			<SidebarMenu>
 				{items.map((item) => (
-					<SidebarMenuItem>
+					<SidebarMenuItem key={item.title}>
 						<SidebarMenuButton tooltip={item.title}>
 							{item.icon && <item.icon />}
 							<span>{item.title}</span>

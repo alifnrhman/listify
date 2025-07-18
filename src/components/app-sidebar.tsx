@@ -1,71 +1,37 @@
 "use client";
 
 import * as React from "react";
-
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
 import { TeamSwitcher } from "@/components/team-switcher";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar";
-
-import { LayoutDashboard, ImageIcon, Sparkles, Settings2, HelpCircle, LayoutTemplateIcon, UserRoundIcon } from "lucide-react";
 import { NavSecondary } from "./nav-secondary";
-
-export const data = {
-	teams: [
-		{
-			name: "Personal Workspace ",
-			logo: UserRoundIcon,
-			plan: "Free Plan",
-		},
-	],
-	navMain: [
-		{
-			title: "Dashboard",
-			url: "/dashboard",
-			icon: LayoutDashboard,
-		},
-		{
-			title: "Generate Listing",
-			url: "/generate",
-			icon: Sparkles,
-		},
-		{
-			title: "My Listings",
-			url: "/listings",
-			icon: ImageIcon,
-		},
-		{
-			title: "My Templates",
-			url: "/templates",
-			icon: LayoutTemplateIcon,
-		},
-	],
-	navSecondary: [
-		{
-			title: "Settings",
-			url: "/settings",
-			icon: Settings2,
-		},
-		{
-			title: "Help",
-			url: "/help",
-			icon: HelpCircle,
-		},
-	],
-};
+import { Button } from "./ui/button";
+import { useSidebarNav } from "@/lib/use-sidebar-nav";
+import { navData } from "@/constants";
 
 export function AppSidebar({ user, ...props }: { user: any } & React.ComponentProps<typeof Sidebar>) {
+	const { navMain, navSecondary, teams } = useSidebarNav(navData);
+
 	return (
 		<Sidebar
 			collapsible="icon"
 			{...props}>
 			<SidebarHeader>
-				<TeamSwitcher teams={data.teams} />
+				<TeamSwitcher teams={teams} />
+				<div className="px-2 mt-4">
+					<Button
+						className="w-full"
+						variant="default"
+						size="sm">
+						+ New Listing
+					</Button>
+				</div>
 			</SidebarHeader>
 			<SidebarContent>
-				<NavMain items={data.navMain} />
+				<NavMain items={navMain} />
 				<NavSecondary
-					items={data.navSecondary}
+					items={navSecondary}
 					className="mt-auto"
 				/>
 			</SidebarContent>

@@ -6,6 +6,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
 import { SignOutButton } from "@clerk/nextjs";
+import { ThemeToggleWithLabel } from "./dashboard/ThemeToggleWithLabel";
+import { cn } from "@/lib/utils";
 
 export function NavUser({
 	user,
@@ -73,6 +75,8 @@ export function NavUser({
 								<BadgeCheck />
 								Account
 							</DropdownMenuItem>
+
+							<ThemeToggleWithLabel />
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />
 						<SignOutButton>
