@@ -1,4 +1,4 @@
-import { LayoutDashboard, HelpCircle, UserRoundIcon, Settings, Layers, Image, RocketIcon } from "lucide-react";
+import { HelpCircle, UserRoundIcon, Settings, RocketIcon, Compass, FileText, LayoutTemplate, Home } from "lucide-react";
 
 export const navData = {
 	teams: [
@@ -12,17 +12,22 @@ export const navData = {
 		{
 			title: "Dashboard",
 			url: "/dashboard",
-			icon: LayoutDashboard,
+			icon: Home,
 		},
 		{
-			title: "Listings",
-			url: "/listings",
-			icon: Image,
+			title: "My Contents",
+			url: "/contents",
+			icon: FileText,
 		},
 		{
 			title: "My Templates",
 			url: "/templates",
-			icon: Layers,
+			icon: LayoutTemplate,
+		},
+		{
+			title: "Explore Templates",
+			url: "/explore",
+			icon: Compass,
 		},
 	],
 	navSecondary: [

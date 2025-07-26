@@ -7,7 +7,7 @@ import { ThemeToggle } from "./ThemeToggle";
 import { Menu } from "lucide-react";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader } from "@/components/ui/sheet";
 import { Logo } from "./Logo";
-import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
 const navLinks = [
@@ -19,6 +19,15 @@ const navLinks = [
 
 export function Navbar() {
 	const router = useRouter();
+	const { isSignedIn } = useUser();
+
+	const goToDashboard = async () => {
+		if (isSignedIn) {
+			router.push(`/dashboard`);
+		} else {
+			alert("Personal dashboard not found.");
+		}
+	};
 
 	return (
 		<header className="w-full bg-transparent fixed top-0 left-0 z-50 backdrop-blur">
@@ -58,7 +67,7 @@ export function Navbar() {
 					<SignedIn>
 						<Button
 							variant="outline"
-							onClick={() => router.push("/dashboard")}>
+							onClick={goToDashboard}>
 							Dashboard
 						</Button>
 						<UserButton />
@@ -104,7 +113,7 @@ export function Navbar() {
 									<SignedIn>
 										<Button
 											variant="ghost"
-											onClick={() => router.push("/dashboard")}>
+											onClick={goToDashboard}>
 											Dashboard
 										</Button>
 										<UserButton showName />

@@ -1,31 +1,22 @@
 "use client";
 
-import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles } from "lucide-react";
+import { BadgeCheck, ChevronsUpDown, LogOut } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
-import { SignOutButton } from "@clerk/nextjs";
+import { SignOutButton, useUser } from "@clerk/nextjs";
 import { ThemeToggleWithLabel } from "./dashboard/ThemeToggleWithLabel";
-import { cn } from "@/lib/utils";
 
-export function NavUser({
-	user,
-}: {
-	user: {
-		fullName: string;
-		primaryEmailAddress: {
-			emailAddress: string;
-		};
-		imageUrl: string;
-	};
-}) {
+export function NavUser() {
 	const { isMobile } = useSidebar();
+	const { user } = useUser();
 
-	const userInitials = user?.fullName
-		.split(" ")
-		.map((name) => name.charAt(0))
-		.join("");
+	const userInitials =
+		user?.fullName
+			?.split(" ")
+			.map((name) => name.charAt(0))
+			.join("") ?? "";
 
 	return (
 		<SidebarMenu>
@@ -38,7 +29,7 @@ export function NavUser({
 							<Avatar className="h-8 w-8 rounded-lg">
 								<AvatarImage
 									src={user?.imageUrl}
-									alt={user?.fullName}
+									alt={user?.fullName ?? undefined}
 								/>
 								<AvatarFallback className="rounded-lg">{userInitials}</AvatarFallback>
 							</Avatar>
@@ -59,7 +50,7 @@ export function NavUser({
 								<Avatar className="h-8 w-8 rounded-lg">
 									<AvatarImage
 										src={user?.imageUrl}
-										alt={user?.fullName}
+										alt={user?.fullName ?? undefined}
 									/>
 									<AvatarFallback className="rounded-lg">{userInitials}</AvatarFallback>
 								</Avatar>

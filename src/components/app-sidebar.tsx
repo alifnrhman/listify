@@ -4,14 +4,17 @@ import * as React from "react";
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
 import { TeamSwitcher } from "@/components/team-switcher";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail, useSidebar } from "@/components/ui/sidebar";
 import { NavSecondary } from "./nav-secondary";
 import { Button } from "./ui/button";
 import { useSidebarNav } from "@/lib/use-sidebar-nav";
 import { navData } from "@/constants";
+import { useRouter } from "next/navigation";
 
-export function AppSidebar({ user, ...props }: { user: any } & React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const { navMain, navSecondary, teams } = useSidebarNav(navData);
+	const router = useRouter();
+	const { state } = useSidebar();
 
 	return (
 		<Sidebar
@@ -19,12 +22,11 @@ export function AppSidebar({ user, ...props }: { user: any } & React.ComponentPr
 			{...props}>
 			<SidebarHeader>
 				<TeamSwitcher teams={teams} />
-				<div className="px-2 mt-4">
+				<div className={`${state == "collapsed" ? "p-0" : "px-2"} pt-2`}>
 					<Button
 						className="w-full"
-						variant="default"
-						size="sm">
-						+ New Listing
+						onClick={() => router.push("/contents/new")}>
+						{state == "collapsed" ? "+" : "+ Create New Content"}
 					</Button>
 				</div>
 			</SidebarHeader>
@@ -36,7 +38,7 @@ export function AppSidebar({ user, ...props }: { user: any } & React.ComponentPr
 				/>
 			</SidebarContent>
 			<SidebarFooter>
-				<NavUser user={user} />
+				<NavUser />
 			</SidebarFooter>
 			<SidebarRail />
 		</Sidebar>
